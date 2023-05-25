@@ -7,6 +7,14 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./database:/var/lib/postgresql/data"
+    env_file:
+      - .env
   nginx:
     image: nginx:1.19.3
     ports:
