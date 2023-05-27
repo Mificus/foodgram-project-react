@@ -71,9 +71,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         pdf.set_font('Dejavu', size=14)
         pdf.cell(txt='Список покупок', center=True)
         for i, ingridient in enumerate(list_ingr):
-            name = ingridient['ingridient__name']
-            unit = ingridient['ingridient__measurement__unit']
-            amount = ingridient['amount__sum']
+            name = list_ingr['ingridient__name']
+            unit = list_ingr['ingridient__measurement__unit']
+            amount = list_ingr['amount__sum']
             pdf.cell(40, 10, f'{i + 1}{name} - {amount} {unit}')
             pdf.ln()
         return pdf.output(dest='S')
