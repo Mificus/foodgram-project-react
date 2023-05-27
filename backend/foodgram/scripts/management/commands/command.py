@@ -27,11 +27,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         path = kwargs['path']
         table = kwargs['tab_name']
-        # with open(path, 'r') as file:
-        #     self.cur.copy_from(
-        #         file, table, sep=',', columns=("name", "measurement_unit")
-        #     )
-        # self.conn.commit()
         try:
             with open(path, 'r') as file:
                 data = csv.reader(file)

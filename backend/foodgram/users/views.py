@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
 from users.serializer import SubscriptionSerializer
 
 from .models import Subscription, User
@@ -13,8 +12,7 @@ from .models import Subscription, User
 class CustomUserViewSet(UserViewSet):
     queryset = User.objects.all()
 
-    @action(detail=False, url_path='subscriptions',
-            url_name='subscriptions', permission_classes=[IsAuthenticated])
+    @action(detail=False, permission_classes=[IsAuthenticated])
     def subscriptions(self, request):
         """Список авторов, на которых подписан пользователь."""
         user = request.user

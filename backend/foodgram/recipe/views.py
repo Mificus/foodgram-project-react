@@ -46,34 +46,39 @@ class RecipeViewSet(viewsets.ModelViewSet):
         relation.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(methods=['post', 'delete'], detail=True, url_path='favorite',
-            url_name='favorite')
+    @action(methods=['post', 'delete'], detail=True)
     def favorite(self, request, pk=None):
         """Добавление и удаление рецептов - Избранное."""
         user = request.user
         if request.method == 'POST':
             name = 'избранное'
             return self.add(Favorite, user, pk, name)
-        if request.method == 'DELETE':
-            name = 'избранного'
-            return self.delete_relation(Favorite, user, pk, name)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @action(methods=['post', 'delete'], detail=True, url_path='shopping_cart',
-            url_name='shopping_cart')
+    @action(methods=['post', 'delete'], detail=True)
     def shopping_cart(self, request, pk=None):
         """Добавление и удаление рецептов - Список покупок."""
         user = request.user
         if request.method == 'POST':
             name = 'список покупок'
             return self.add(ShoppingCart, user, pk, name)
-        if request.method == 'DELETE':
-            name = 'списка покупок'
-            return self.delete_relation(ShoppingCart, user, pk, name)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @action(methods=['get'], detail=False, url_path='download_shopping_cart',
-            url_name='download_shopping_cart')
+    def format_to_pdf(self, list_ingr):
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.add_font('DejaVu', '', './recipes/font/DejaVuSansCondensed.ttf', uni=True)
+        pdf.set_font('Dejavu', size=14)
+        pdf.cell(txt='Список покупок', center=True)
+        for i, ingridient in enumerate(list_ingr):
+            name = ingridient['ingridient__name']
+            unit = ingridient['ingridient__measurement__unit']
+            amount = ingridient['amount__sum']
+            pdf.cell(40, 10, f'{i + 1}{name} - {amount} {unit}')
+            pdf.ln()
+        return pdf.output(dest='S')
+
+    @action(methods=['get'], detail=False)
     def download_cart(self, request):
         """Формирование и скачивание списка покупок."""
         user = request.user
@@ -81,20 +86,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             recipe__sh_cart__user=user).values(
                 'ingredient__name', 'ingredient__measurement_unit').annotate(
                     Sum('amount', distinct=True))
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.add_font(
-            'DejaVu', '', './recipes/fonts/DejaVuSansCondensed.ttf', uni=True)
-        pdf.set_font('DejaVu', size=14)
-        pdf.cell(txt='Список покупок', center=True)
-        pdf.ln(8)
-        for i, ingredient in enumerate(ingredients):
-            name = ingredient['ingredient__name']
-            unit = ingredient['ingredient__measurement_unit']
-            amount = ingredient['amount__sum']
-            pdf.cell(40, 10, f'{i + 1}) {name} - {amount} {unit}')
-            pdf.ln()
-        file = pdf.output(dest='S')
+        format_to_pdf(ingredients)
         response = HttpResponse(
             content_type='application/pdf', status=status.HTTP_200_OK)
         response['Content-Disposition'] = (

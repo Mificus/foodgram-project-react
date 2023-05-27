@@ -1,9 +1,9 @@
 from django.core.validators import MinValueValidator
 from django.db import models
-
-from recipe.validators import validate_time
 from tags_ingr.models import Ingredient, Tag
 from users.models import User
+
+from .validators import validate_time
 
 
 class Recipe(models.Model):
