@@ -10,11 +10,11 @@ services:
       - .env
 
   frontend:
-    image: maxswallow/foodgram_frontend
+    image: maxswallow/foodgram_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
   backend:
-    image: maxswallow/foodgram_backend
+    image: maxswallow/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
