@@ -4,7 +4,7 @@ WORKDIR /app_back
 
 COPY requirements.txt /app_back/
 
-RUN pip3 install -r /app_back/requirements.txt --no-cache-dir
+RUN pip3 install -r requirements.txt --no-cache-dir
 
 COPY . /app_back/
 
