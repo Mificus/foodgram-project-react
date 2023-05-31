@@ -57,10 +57,12 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
-            sudo docker-compose pull
-            sudo docker-compose rm backend
+            sudo docker-compose stop
+            sudo docker system prune -f
+            sudo docker-compose rm web
+            sudo systemctl stop nginx
+            cd foodgram
+            rm .env
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -69,6 +71,8 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d 
+            sudo docker-compose run web python3 manage.py migrate
+            sudo docker compose exec -T web python manage.py collectstatic
 
   send_message:
     runs-on: ubuntu-latest
