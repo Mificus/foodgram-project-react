@@ -2,11 +2,11 @@ version: '3.3'
 services:
 
   frontend:
-    image: maxswallow/foodgram_frontend:latest
+    image: maxswallow/foodgram_frontend
     volumes:
       - ../frontend/:/app/result_build/
   backend:
-    image: maxswallow/foodgram_backend:latest
+    image: maxswallow/foodgram_backend
     restart: always
     volumes:
       - static_value:/app/static/
