@@ -61,7 +61,6 @@ jobs:
             sudo docker system prune -f
             sudo docker-compose rm web
             sudo systemctl stop nginx
-            cd foodgram
             rm .env
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
