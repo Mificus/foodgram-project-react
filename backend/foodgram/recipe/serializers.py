@@ -6,7 +6,7 @@ from recipe.models import Favorite, IngredientAmount, Recipe, ShoppingCart
 from recipe.validators import validate_ingredients, validate_tags
 from tags_ingr.models import Ingredient, Tag
 from tags_ingr.serializers import TagSerializer
-from users.serializer import CustomUserSerializer
+from users.serializers import CustomUserSerializer
 
 
 class IngredientAmountSerializer(serializers.ModelSerializer):

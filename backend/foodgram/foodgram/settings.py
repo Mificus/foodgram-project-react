@@ -113,9 +113,9 @@ AUTH_USER_MODEL = 'users.User'
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'SERIALIZERS': {
-        'user': 'users.serializer.CustomUserSerializer',
-        'current_user': 'users.serializer.CustomUserSerializer',
-        'user_create': 'users.serializer.CustomUserSerializer',
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+        'user_create': 'users.serializers.CustomUserSerializer',
     },
     'HIDE_USERS': False,
     'PERMISSIONS': {
