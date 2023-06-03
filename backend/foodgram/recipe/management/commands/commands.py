@@ -1,8 +1,9 @@
 import csv
 import os
-from foodgram import settings
 
+import psycopg2
 from django.core.management.base import BaseCommand
+from foodgram import settings
 from progress.bar import IncrementalBar
 from recipe.models import Ingredient
 
