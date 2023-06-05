@@ -49,29 +49,24 @@ POSTGRES_PASSWORD=postgres
 DB_HOST=db
 DB_PORT=5432
 ```
+4. Создать на сервере папку infra. В неё скопировать 
+   - docker-compose.yml
+   - nginx.conf
+   - .env
+   
+5. Запустить docker-compose up -d
 
-4. В директории infra следует выполнить команды:
+6. Для создания суперпользователя, выполните команду:
 ```
-sudo docker-compose up -d
-sudo docker-compose exec backend python manage.py makemigrations
-sudo docker-compose exec backend python manage.py migrate
-sudo docker-compose exec backend python manage.py collectstatic --no-input
-```
-
-5. Для создания суперпользователя, выполните команду:
-```
-docker-compose exec backend python manage.py createsuperuser
+sudo docker-compose exec backend python manage.py createsuperuser
 ```
 
-6. Для добавления ингредиентов в базу данных, выполните команду:
-```
-sudo docker-compose exec backend python manage.py commands
-```
+
 После выполнения этих действий проект будет запущен в трех контейнерах (backend, db, nginx) и доступен по адресам:
 
-- Главная страница: http://<ip-адрес>/recipes/
-- API проекта: http://<ip-адрес>/api/
-- Admin-зона: http://<ip-адрес>/admin/
+- Главная страница: http://158.160.42.163/recipes/
+- API проекта: http://158.160.42.163/api/
+- Admin-зона: http://158.160.42.163/admin/
 7. Теги вручную добавляются в админ-зоне в модель Tags;
 8. Проект запущен и готов к регистрации пользователей и добавлению рецептов.
 
