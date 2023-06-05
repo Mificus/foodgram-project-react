@@ -53,9 +53,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if request.method == 'POST':
             name = 'избранное'
             return self.add(Favorite, user, pk, name)
-        else:
+        if request.method == 'DELETE':
             name = 'избранного'
             return self.delete_relation(Favorite, user, pk, name)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     @action(methods=['post', 'delete'], detail=True, url_path='shopping_cart',
             url_name='shopping_cart')
