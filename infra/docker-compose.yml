@@ -9,10 +9,6 @@ services:
     env_file:
       - ./.env
 
-  frontend:
-    image: maxswallow/foodgram_frontend:latest
-    volumes:
-      - ../frontend/:/app/result_build/
   backend:
     image: maxswallow/foodgram_backend:latest
     restart: always
@@ -23,6 +19,13 @@ services:
       - db
     env_file:
       - ./.env
+
+  frontend:
+    image: maxswallow/foodgram_frontend:latest
+    volumes:
+      - ../frontend/:/app/result_build/
+    depends_on:
+      - backend
 
   nginx:
     image: nginx:1.19.3
@@ -41,4 +44,3 @@ services:
 volumes:
   static_value:
   media_value:
-  db:
