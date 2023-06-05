@@ -13,4 +13,4 @@ def format_to_pdf(list_ingr):
         amount = list_ingr['amount__sum']
         pdf.cell(40, 10, f'{i + 1}{name} - {amount} {unit}')
         pdf.ln()
-    return pdf.output(name='source.pdf', dest='S')
+    return pdf.output(dest='S').encode('latin-1')
