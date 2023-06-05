@@ -39,7 +39,6 @@ services:
     depends_on:
       - backend
 
-
 volumes:
   static_value:
   media_value:
