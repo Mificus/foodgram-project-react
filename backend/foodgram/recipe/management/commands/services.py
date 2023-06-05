@@ -4,7 +4,7 @@ from fpdf import FPDF
 def format_to_pdf(list_ingr):
     pdf = FPDF()
     pdf.add_page()
-    pdf.add_font('DejaVu', '', './recipes/font/DejaVuSansCondensed.ttf', uni=True)
+    pdf.add_font('DejaVu', '', './recipe/font/DejaVuSansCondensed.ttf', uni=True)
     pdf.set_font('Dejavu', size=14)
     pdf.cell(txt='Список покупок', center=True)
     for i, ingridient in enumerate(list_ingr):
