@@ -60,7 +60,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     def get_recipes(self, obj):
         """Получение списка рецептов автора."""
-        from recipes.serializers import SmallRecipeSerializer
+        from recipe.serializers import SmallRecipeSerializer
         limit = self.context.get('request').GET.get('recipes_limit')
         recipe_obj = obj.author.recipes.all()
         if limit:
