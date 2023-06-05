@@ -1,7 +1,6 @@
 import csv
 import os
 
-import psycopg2
 from django.core.management.base import BaseCommand
 from foodgram import settings
 from progress.bar import IncrementalBar

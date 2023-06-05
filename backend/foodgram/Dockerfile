@@ -2,10 +2,10 @@ FROM python:3.7-slim
 
 WORKDIR /app_back
 
-COPY requirements.txt /app_back/
+COPY requirements.txt .
 
-RUN pip install -r requirements.txt --no-cache-dir
+RUN pip3 install -r requirements.txt --no-cache-dir
 
-COPY . /app_back/
+COPY foodgram/ .
 
 CMD ["gunicorn", "foodgram.wsgi:application", "--bind", "0:8000" ]
