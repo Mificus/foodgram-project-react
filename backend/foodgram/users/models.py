@@ -8,7 +8,7 @@ class User(AbstractUser):
     last_name = models.CharField('Фамилия', max_length=150)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'password']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
 
     class Meta:
         verbose_name = 'Пользователь'
