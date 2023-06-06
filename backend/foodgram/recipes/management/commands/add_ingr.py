@@ -8,7 +8,6 @@ class Command(BaseCommand):
     help = 'Add data to bd'
 
     def handle(self, *args, **options):
-
         with open('recipes/initial_data/ingredients.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
 
